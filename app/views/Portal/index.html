@@ -1,0 +1,51 @@
+#{extends 'main.html' /}
+#{set title:'Portal App' /}
+
+<p>
+    You can set minimum hours count so that we could send you a reminder well before your contact's birthday :)
+</p>
+#{form @updateHourCount()}
+    #{field 'hourCount'}
+        <p class="${field.errorClass}">
+            <strong>Hour Count:</strong> <input type="number" name="${field.name}" required="true"  min="0" value="${hourCount}"> * <input type="submit" value="Update Hour Count"> 
+            <span class="error">${field.error}</span>
+        </p>
+    #{/field}
+#{/form}
+
+
+<p>
+	<u><a style="color:red" href="@{addContact()}">Add New Contact</a></u>
+</p>
+
+
+<h1>Current Contact List</h1>
+
+#{ifnot contactList}
+    <p>
+        No Contacts Found
+    </p>
+#{/ifnot}
+#{else}
+   <table>
+       <thead>
+           <tr>
+               <th>Name</th>
+               <th>Birth Date</th>
+			   <th>Action</th>
+           </tr>
+       </thead>
+       <tbody>
+           #{list contactList, as:'c'}
+               <tr>
+                   <td>${c.userContactName}</td>
+                   <td>${c.birthDate.format('yyyy-MM-dd')}</td>
+				   <td>
+                        #{a @deleteContact(c.userContactName)}Delete#{/a}
+                   </td>
+
+               </tr>
+           #{/list}
+       </tbody>
+   </table> 
+#{/else}

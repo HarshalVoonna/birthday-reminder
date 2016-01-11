@@ -1,0 +1,39 @@
+#{extends 'main.html' /}
+#{set title:'Add New Contact ' + user.username /}
+#{set 'moreScripts'}
+    <script src="@{'/public/javascripts/jquery-ui-1.7.2.custom.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+#{/set}
+#{set 'moreStyles'}
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/ui-lightness/jquery-ui-1.7.2.custom.css'}" />
+#{/set}
+
+<h1>Add New Contact</h1>
+
+
+#{form @saveContact(contact)}
+    <p>
+        <strong>User:</strong> ${user.username}
+    </p>
+    #{field 'contact.userContactName'}
+        <p class="${field.errorClass}">
+            <strong>Contact Name:</strong> <input type="text" name="${field.name}" required="true"  value="${contact?.userContactName}"> *
+            <span class="error">${field.error}</span>
+        </p>
+    #{/field}
+	#{field 'contact.birthDate'}
+        <p class="${field.errorClass}">
+            <strong>Birth Date:</strong> <input type="text"  required="true" name="${field.name}" class="datepicker" value="${contact?.birthDate?.format('yyyy-MM-dd')}"> *
+            <span class="error">${field.error}</span>
+        </p>
+    #{/field}
+    <p class="buttons">
+        <input type="submit" value="Add Contact"> <a href="@{index()}">Cancel</a>    
+    </p>
+#{/form}
+
+
+<script type="text/javascript" charset="${_response_encoding}">
+    $(function() {
+		$(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+	});
+</script>

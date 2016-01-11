@@ -1,0 +1,10 @@
+# Users
+
+models.User(demo):
+    username:     demo
+    password:     demo
+    name:         Demo User
+    emailAddress: demo@grr.la
+    hourCount:    24
+
+# Hotels
